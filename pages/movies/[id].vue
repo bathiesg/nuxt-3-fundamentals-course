@@ -1,8 +1,21 @@
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+const route = useRoute();
+
+const { data, error } = await useAsyncData(() => {
+  const response = $fetch(
+    `http://www.omdbapi.com/?apikey=e1d7a6a2&i=${route.params.id}`
+  );
+  return response;
+});
+</script>
 
 <template>
   <div>
-    <h1>Movie of id: {{ $route.params.id }}</h1>
+    <pre>
+      {{ data }}
+    </pre>
+
+    <code>{{ error }}</code>
   </div>
 </template>
 
